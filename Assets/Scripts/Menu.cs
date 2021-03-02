@@ -83,7 +83,13 @@ public class Menu : MonoBehaviour
         mixer.SetFloat("Volume", level);
     }
 
-    public void ChangeQuality(int qualityIndex) //Resolutions setting
+    public void SetResolution(int resolutionIndex) //Resolutions setting
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void ChangeGraphicsQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
