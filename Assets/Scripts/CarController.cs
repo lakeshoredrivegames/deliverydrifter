@@ -12,6 +12,7 @@ public class CarController : MonoBehaviour
 
     private bool isBraking;
     private bool changeCamera;
+    private CameraFollow cam;
     
 
     [SerializeField] private float motorForce;
@@ -28,12 +29,19 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearDriverWheelTransform;
     [SerializeField] private Transform rearPassengerWheelTransform;
 
+    private void Start()
+    {
+        //find camera 
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+    }
+
     private void FixedUpdate()
     {
         GetInput();
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        ChangeCamera();
     }
 
     private void GetInput()
@@ -42,7 +50,7 @@ public class CarController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         isBraking = Input.GetKey(KeyCode.Space);
         changeCamera = Input.GetKey(KeyCode.Return);
-
+        Debug.Log("horizontalInput: " + horizontalInput);
     }
 
     private void HandleMotor()
@@ -85,5 +93,15 @@ public class CarController : MonoBehaviour
         wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
+    }
+
+    private void ChangeCamera()
+    {
+        if(changeCamera)
+        {
+            cam.changeCamera = !cam.changeCamera;
+            cam.cameraOffsetY = 2;
+            //cam.cameraOffsetZ = -2;
+        }
     }
 }
