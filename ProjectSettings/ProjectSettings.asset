@@ -668,10 +668,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: b35f9c68-337f-4a5a-ada7-3ed7812dbafd
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: DeliveryDrifter
+  organizationId: team-hummingbird
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
