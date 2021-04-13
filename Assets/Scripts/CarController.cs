@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    public float speed;
+    private Rigidbody rb;
+
     private float horizontalInput;
     private float verticalInput;
     private float currentBrakeForce;
@@ -29,10 +32,20 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearDriverWheelTransform;
     [SerializeField] private Transform rearPassengerWheelTransform;
 
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+    }
+
     private void Start()
     {
         //find camera 
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        //get rigidbody on car
+        rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
@@ -50,7 +63,7 @@ public class CarController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         isBraking = Input.GetKey(KeyCode.Space);
         changeCamera = Input.GetKey(KeyCode.Return);
-        Debug.Log("horizontalInput: " + horizontalInput);
+        //Debug.Log("horizontalInput: " + horizontalInput);
     }
 
     private void HandleMotor()
@@ -58,6 +71,7 @@ public class CarController : MonoBehaviour
         frontDriverWheelCollider.motorTorque = verticalInput * motorForce;
         frontPassengerWheelCollider.motorTorque = verticalInput * motorForce;
         currentBrakeForce = isBraking ? brakeForce : 0f;
+        speed = rb.velocity.magnitude / 1000;
         ApplyBrakes();
 
     }
